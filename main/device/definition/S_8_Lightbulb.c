@@ -20,7 +20,7 @@ Service * S_8_Lightbulb(void)
 
     do
     {
-        thiz = Service_NewInstance(2, "homekit-spec", "lightbulb", 0x00000043, NULL);
+        thiz = Service_NewInstance(8, "homekit-spec", "lightbulb", 0x00000043, NULL);
         if (thiz == NULL)
         {
             break;

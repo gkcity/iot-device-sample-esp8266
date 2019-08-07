@@ -14,5 +14,5 @@
 
 Property * P_1_6_SerialNumber(void)
 {
-    return Property_NewInstance(6, "homekit-spec", "serial-number", 0x00000030, NULL, FORMAT_STRING, 0, NONE);
+    return Property_NewInstance(6, "homekit-spec", "serial-number", 0x00000030, NULL, FORMAT_STRING, ACCESS_READ, NONE);
 }

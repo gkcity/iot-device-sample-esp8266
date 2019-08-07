@@ -51,14 +51,14 @@ Service * S_1_AccessoryInformation(void)
             break;
         }
 
-        if (RET_FAILED(TinyList_AddTail(&thiz->properties, P_1_6_SerialNumber())))
+        if (RET_FAILED(TinyList_AddTail(&thiz->properties, P_1_5_Name())))
         {
             Service_Delete(thiz);
             thiz = NULL;
             break;
         }
 
-        if (RET_FAILED(TinyList_AddTail(&thiz->properties, P_1_5_Name())))
+        if (RET_FAILED(TinyList_AddTail(&thiz->properties, P_1_6_SerialNumber())))
         {
             Service_Delete(thiz);
             thiz = NULL;

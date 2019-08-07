@@ -2,5 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/tiny/tiny" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/tinycrypto/tinycrypto" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/tinyfx/tinyfx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/tinymdns/tinymdns" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/components/tinyxcp/tinyxcp" vcs="Git" />
   </component>
 </project>
