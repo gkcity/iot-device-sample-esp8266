@@ -16,7 +16,7 @@ git checkout v32
 ```bash
 export IDF_PATH=/opt/ESP8266_RTOS_SDK
 export ESP8266_TOOLCHAIN=/opt/xtensa-lx106-elf
-export PATH=$ESP8266_TOOLCHAIN/bin:$PATH
+export PATH=$ESP8266_TOOLCHAIN/bin:$IDF_PATH/tools:$PATH
 ```
 
 ## 编译（后续版本仅支持cmake）
