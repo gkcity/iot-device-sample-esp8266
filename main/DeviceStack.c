@@ -15,40 +15,31 @@
 #include <IotLauncher.h>
 #include <XcpwsClientRuntime.h>
 #include <XcpwsServerRuntime.h>
-#include <TinyThread.h>
-#include <server/WebcmdServer.h>
 #include "DeviceStack.h"
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_system.h"
 
 #define TAG "DeviceStack"
 
-static TinyThread *_thread = NULL;
+static IotLauncher *_launcher = NULL;
+static int _taskId = 0;
 
-static void _loop(void *param)
+static void _LoopHook(Bootstrap *thiz, void *ctx)
 {
-    TinyRet ret = IotLauncher_Run((IotLauncher *) param);
-    if (RET_FAILED(ret))
-    {
-        LOG_D(TAG, "IotLauncher_Run FAILED: %d", ret);
-    }
+    printf("[%s] stack = %ld, free heap size: %d\n", TAG, uxTaskGetStackHighWaterMark(NULL), esp_get_free_heap_size());
 }
 
 TinyRet StartDeviceStack(Product *product, uint16_t *port)
 {
     TinyRet ret = TINY_RET_OK;
-    IotLauncher *launcher = NULL;
 
     do
     {
-        if (_thread != NULL)
+        if (_taskId != 0)
         {
             ret = TINY_RET_E_STARTED;
-            break;
-        }
-
-        _thread = TinyThread_New();
-        if (_thread == NULL)
-        {
-            ret = TINY_RET_E_NEW;
             break;
         }
 
@@ -59,24 +50,17 @@ TinyRet StartDeviceStack(Product *product, uint16_t *port)
             break;
         }
 
-        launcher = IotLauncher_NewRuntime(product, runtime, WebcmdServer_New(runtime, port), NULL, NULL);
-        if (launcher == NULL)
+        _launcher = IotLauncher_NewRuntime(product, runtime, NULL, _LoopHook, NULL);
+        if (_launcher == NULL)
         {
             ret = TINY_RET_E_NEW;
             break;
         }
 
-        ret = TinyThread_Initialize(_thread, _loop, launcher, "stack");
+        ret = IotLauncher_Run(_launcher);
         if (RET_FAILED(ret))
         {
-            IotLauncher_Delete(launcher);
-            break;
-        }
-
-        if (! TinyThread_Start(_thread))
-        {
-            ret = TINY_RET_E_INTERNAL;
-            break;
+            LOG_D(TAG, "IotLauncher_Run FAILED: %d", TINY_RET_CODE(ret));
         }
     } while (false);
 
@@ -89,27 +73,16 @@ TinyRet StopDeviceStack(void)
 
     do
     {
-        if (_thread == NULL)
+        if (_taskId == 0)
         {
             ret = TINY_RET_E_STOPPED;
             break;
         }
 
-        if (_thread->status != ThreadRunning)
-        {
-            ret = TINY_RET_E_STATUS;
-            break;
-        }
-
-        ret = IotLauncher_Stop((IotLauncher *) (_thread->thread_param));
+        ret = IotLauncher_Stop(_launcher);
         if (RET_FAILED(ret))
         {
             break;
-        }
-
-        if (!TinyThread_Join(_thread))
-        {
-            ret = TINY_RET_E_INTERNAL;
         }
     } while (false);
 

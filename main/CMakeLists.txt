@@ -44,12 +44,8 @@ SET(DEVICE_SRC
 
 set(COMPONENT_SRCS
         ${DEVICE_SRC}
-        DeviceMonitor.h
-        DeviceMonitor.c
         DeviceStack.h
         DeviceStack.c
-        CommandReader.h
-        CommandReader.c
         main.c
         )
 

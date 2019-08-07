@@ -10,3 +10,6 @@
 [submodule "components/tinymdns/tinymdns"]
 	path = components/tinymdns/tinymdns
 	url = https://github.com/gkcity/tinymdns.git
+[submodule "components/tinyxcp/tinyxcp"]
+	path = components/tinyxcp/tinyxcp
+	url = https://github.com/gkcity/tinyxcp.git
