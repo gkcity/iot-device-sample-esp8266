@@ -19,7 +19,6 @@
 void OnPropertySet(PropertyOperation *o)
 {
     printf("OnPropertySet: did=[%s], siid = [%d], piid = [%d]\n", o->pid.did, o->pid.siid, o->pid.iid);
-    printValue(o->value);
 
     switch (o->pid.siid)
     {

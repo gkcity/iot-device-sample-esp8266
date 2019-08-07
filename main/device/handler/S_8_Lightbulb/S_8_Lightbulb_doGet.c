@@ -12,6 +12,7 @@
 
 #include "S_8_Lightbulb_doGet.h"
 #include "../../iid/IID.h"
+#include "driver/gpio.h"
 
 static void P_8_9_Name_doGet(PropertyOperation *o)
 {
@@ -20,7 +21,10 @@ static void P_8_9_Name_doGet(PropertyOperation *o)
 
 static void P_8_9_On_doGet(PropertyOperation *o)
 {
-    o->value = JsonValue_NewBoolean(true);
+    int value = gpio_get_level(GPIO_NUM_12);
+    printf("gpio_get_level(12) => %d\n", value);
+
+    o->value = JsonValue_NewBoolean(value == 1);
 }
 
 void S_8_Lightbulb_doGet(PropertyOperation *o)
