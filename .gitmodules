@@ -1,0 +1,12 @@
+[submodule "components/tiny/tiny"]
+	path = components/tiny/tiny
+	url = https://github.com/gkcity/tiny.git
+[submodule "components/tinyfx/tinyfx"]
+	path = components/tinyfx/tinyfx
+	url = https://github.com/gkcity/tinyfx.git
+[submodule "components/tinycrypto/tinycrypto"]
+	path = components/tinycrypto/tinycrypto
+	url = https://github.com/gkcity/tinycrypto.git
+[submodule "components/tinymdns/tinymdns"]
+	path = components/tinymdns/tinymdns
+	url = https://github.com/gkcity/tinymdns.git
