@@ -83,7 +83,6 @@ void startIoTStack(const char *ip)
     if (esp_wifi_sta_get_ap_info(&ap) == ESP_OK)
     {
         ESP_LOGI(TAG, "ap.ssid: %s", ap.ssid);
-        ESP_LOGI(TAG, "ap.bssid: %s", ap.bssid);
     }
 
     xTaskCreate(runIotStack, "iot", 1024 * 6, (void *)ip, 5, NULL);
