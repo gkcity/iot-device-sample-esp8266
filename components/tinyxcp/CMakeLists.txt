@@ -235,8 +235,7 @@ set(COMPONENT_SRCS
 		${XcpWebcmd_Source}
         )
 
-
-set(COMPONENT_REQUIRES tiny)
+set(COMPONENT_REQUIRES tinycrypto tinymdns tinyfx tiny)
 
 register_component()
 
