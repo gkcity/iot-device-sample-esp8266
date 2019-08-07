@@ -27,20 +27,31 @@ const int WIFI_CONNECTED_BIT = BIT0;
 
 static const char *TAG = "xiot";
 
-#define SERIAL_NUMBER       "1C:BE:EE:01:01:08"
+static void getSerialNumber(char sn[16])
+{
+    uint8_t mac[6];
+    esp_wifi_get_mac(WIFI_IF_STA, mac);
+
+    snprintf(sn, 16, "%02x%02x%02x%02x%02x%02x", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+}
 
 static void runIotStack(void *param)
 {
     const char *ip = (const char *)param;
+    char sn[16];
     Product *product = NULL;
     uint16_t port = 60006;
 
     /**
      * 1. 初始化产品
      */
-    product = Lightbulb(SERIAL_NUMBER, ip);
+    memset(sn, 0, 16);
+    getSerialNumber(sn);
+
+    product = Lightbulb(sn, ip);
     if (product == NULL)
     {
+        ESP_LOGI(TAG, "product is null");
         return;
     }
 
